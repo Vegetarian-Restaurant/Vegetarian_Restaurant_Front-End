@@ -23,7 +23,7 @@ function Home() {
                 fontSize: "1.3rem",
                 marginBottom: "30px"
             }}>
-                Đặt món ăn chay ngon, giao tận nơi!
+                Đặt món ăn chay ngon, giao tận nơi! Siêu Vip Pro
             </p>
             <div style={{
                 display: "flex",
