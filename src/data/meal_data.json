@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Burger chay đặc biệt",
+    "description": "Burger chay với patty từ đậu đen, rau xanh tươi",
+    "price": 89000,
+    "imageUrl": "/placeholder.svg?height=250&width=250",
+    "category": "Món chính",
+    "isVegetarian": true
+  },
+  {
+    "id": 2,
+    "name": "Phở chay truyền thống",
+    "description": "Phở chay với nước dùng thanh ngọt từ rau củ",
+    "price": 65000,
+    "imageUrl": "/placeholder.svg?height=250&width=250",
+    "category": "Món chính",
+    "isVegetarian": true
+  },
+  {
+    "id": 3,
+    "name": "Pizza chay Margherita",
+    "description": "Pizza với phô mai chay và cà chua tươi",
+    "price": 120000,
+    "imageUrl": "/placeholder.svg?height=250&width=250",
+    "category": "Món chính",
+    "isVegetarian": true
+  },
+  {
+    "id": 4,
+    "name": "Salad quinoa bổ dưỡng",
+    "description": "Salad quinoa với các loại hạt và rau xanh",
+    "price": 75000,
+    "imageUrl": "/placeholder.svg?height=250&width=250",
+    "category": "Khai vị",
+    "isVegetarian": true
+  },
+  {
+    "id": 5,
+    "name": "Smoothie xoài dừa",
+    "description": "Smoothie xoài tươi với nước cốt dừa",
+    "price": 45000,
+    "imageUrl": "/placeholder.svg?height=250&width=250",
+    "category": "Đồ uống",
+    "isVegetarian": true
+  },
+  {
+    "id": 6,
+    "name": "Bánh mì chay Việt Nam",
+    "description": "Bánh mì với chả chay và rau củ tươi",
+    "price": 35000,
+    "imageUrl": "/placeholder.svg?height=250&width=250",
+    "category": "Món chính",
+    "isVegetarian": true
+  }
+]
