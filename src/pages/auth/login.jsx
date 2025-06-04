@@ -486,6 +486,9 @@ const Login = () => {
               <a href="#" style={styles.forgotPassword}>
                 Quên mật khẩu?
               </a>
+              <a href="/auth/register" style={{ ...styles.forgotPassword, color: "#1A3C34" }}>
+                Đăng ký
+              </a>
             </form>
           </>
         ) : (
