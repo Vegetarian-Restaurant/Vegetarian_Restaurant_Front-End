@@ -12,7 +12,6 @@ function Home() {
       <Hero />
       <Categories />
       <FeaturedProducts />
-      <About />
       <Footer />
     </>
   );
