@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CartPage.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -23,25 +24,35 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
 );
 
 // CartSummary Component
-const CartSummary = ({ subtotal, shippingFee = 30000 }) => (
-  <div className="cart-summary">
-    <h2>Tổng giỏ hàng</h2>
-    <div className="summary-row">
-      <span>Tạm tính:</span>
-      <span>{subtotal.toLocaleString()}₫</span>
+const CartSummary = ({ subtotal, shippingFee = 30000 }) => {
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    navigate('/payment');  // Navigate to payment page
+  };
+
+  return (
+    <div className="cart-summary">
+      <h2>Tổng giỏ hàng</h2>
+      <div className="summary-row">
+        <span>Tạm tính:</span>
+        <span>{subtotal.toLocaleString()}₫</span>
+      </div>
+      <div className="summary-row">
+        <span>Phí vận chuyển:</span>
+        <span>{shippingFee.toLocaleString()}₫</span>
+      </div>
+      <div className="summary-row total">
+        <span>Tổng cộng:</span>
+        <span>{(subtotal + shippingFee).toLocaleString()}₫</span>
+      </div>
+      <button className="checkout-btn" onClick={handleCheckout}>
+        Tiến hành thanh toán
+      </button>
+      <button className="continue-shopping">Tiếp tục mua hàng</button>
     </div>
-    <div className="summary-row">
-      <span>Phí vận chuyển:</span>
-      <span>{shippingFee.toLocaleString()}₫</span>
-    </div>
-    <div className="summary-row total">
-      <span>Tổng cộng:</span>
-      <span>{(subtotal + shippingFee).toLocaleString()}₫</span>
-    </div>
-    <button className="checkout-btn">Tiến hành thanh toán</button>
-    <button className="continue-shopping">Tiếp tục mua hàng</button>
-  </div>
-);
+  );
+};
 
 // Main CartPage Component
 const CartPage = () => {
@@ -83,8 +94,7 @@ const CartPage = () => {
       <Header />
       <Banner />
       <main className="cart-container">
-        <h1>Giỏ hàng của bạn</h1>
-        
+        <h1>My Cart</h1>
         <div className="cart-content">
           <div className="cart-items">
             {cartItems.map(item => (
