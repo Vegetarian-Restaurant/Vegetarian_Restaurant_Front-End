@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Container, Form, Button, Row, Col, ListGroup, Image, Stack } from 'react-bootstrap';
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 
 const PaymentPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const cartItems = location.state?.cartItems || [];
+
+    const calculateSubtotal = () => {
+        return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    };
+
+    const shippingFee = 30000;
+    const subtotal = calculateSubtotal();
+    const total = subtotal + shippingFee;
+
     const [paymentInfo, setPaymentInfo] = useState({
         fullName: '',
         email: '',
@@ -17,12 +27,18 @@ const PaymentPage = () => {
         note: ''
     });
 
+    const [selectedPayment, setSelectedPayment] = useState('COD');
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setPaymentInfo(prev => ({
             ...prev,
             [name]: value
         }));
+    };
+
+    const handlePaymentChange = (e) => {
+        setSelectedPayment(e.target.value);
     };
 
     const handleSubmit = (e) => {
@@ -136,47 +152,183 @@ const PaymentPage = () => {
                                 </Col>
                             </Row>
 
-                            <Button 
-                                variant="primary" 
-                                className="w-100 mt-3"
-                                onClick={() => navigate('/payment-method')}
-                            >
-                                Tiếp tục đến phương thức thanh toán
-                            </Button>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Ghi chú</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    name="note"
+                                    value={paymentInfo.note}
+                                    onChange={handleInputChange}
+                                    rows={3}
+                                    placeholder="Ghi chú cho món ăn (nếu có)"
+                                />
+                            </Form.Group>
+
+                            {/* Payment Methods Section */}
+                            <div className="payment-methods mt-4">
+                                <h2 className="mb-4">Hình thức thanh toán</h2>
+                                <Form.Group
+                                    style={{ marginBottom: '120px' }}
+                                >
+                                    <div className="payment-method__item mb-3">
+                                        <Form.Check
+                                            type="radio"
+                                            id="payment-COD"
+                                            name="payment-method"
+                                            value="COD"
+                                            onChange={handlePaymentChange}
+                                            label={
+                                                <div className="d-flex align-items-center">
+                                                    <img
+                                                        src="https://mcdn.coolmate.me/image/October2024/mceclip2_42.png"
+                                                        alt="COD"
+                                                        className="payment-icon me-3"
+                                                        style={{ width: '40px', height: '40px' }}
+
+                                                    />
+                                                    <span className="payment-label">
+                                                        <strong>Thanh toán khi nhận món</strong>
+                                                    </span>
+                                                </div>
+                                            }
+                                            defaultChecked
+                                        />
+                                    </div>
+
+                                    <div className="payment-method__item mb-3">
+                                        <Form.Check
+                                            type="radio"
+                                            id="payment-vnpay"
+                                            name="payment-method"
+                                            value="vnpay"
+                                            onChange={handlePaymentChange}
+                                            label={
+                                                <div className="d-flex align-items-center">
+                                                    <img
+                                                        src="https://mcdn.coolmate.me/image/October2024/mceclip0_81.png"
+                                                        alt="VNPAY"
+                                                        className="payment-icon me-3"
+                                                        style={{ width: '40px', height: '40px' }}
+
+                                                    />
+                                                    <span className="payment-label">
+                                                        <strong>Ví điện tử VNPAY</strong>
+                                                        <br />
+                                                        <span className="text-muted small">Quét QR để thanh toán</span>
+                                                    </span>
+                                                </div>
+                                            }
+                                        />
+                                    </div>
+                                </Form.Group>
+                            </div>
                         </Form>
                     </div>
 
                     {/* Right Side - Order Summary */}
-                    <div className="w-25 bg-light p-3">
+                    <Col md={3} className="bg-light p-3" style={{ marginBottom: '120px' }}>
                         <h3 className="mb-3">Đơn hàng của bạn</h3>
-                        <div className="d-flex justify-content-between mb-2">
-                            <span>Tạm tính:</span>
-                            <span>2,440,000₫</span>
-                        </div>
-                        <div className="d-flex justify-content-between mb-2">
-                            <span>Phí vận chuyển:</span>
-                            <span>-</span>
-                        </div>
-                        <hr />
-                        <div className="d-flex justify-content-between mb-3">
-                            <strong>Tổng cộng:</strong>
-                            <strong>2,440,000₫</strong>
-                        </div>
 
-                        <Form.Group className="mb-3">
+                        <ListGroup className="mb-4">
+                            {cartItems.map(item => (
+                                <ListGroup.Item key={item.id} className="border-0 px-0">
+                                    <Row className="align-items-center">
+                                        <Col xs={3}>
+                                            <Image
+                                                src={item.image}
+                                                alt={item.name}
+                                                fluid
+                                                className="rounded"
+                                            />
+                                        </Col>
+                                        <Col xs={9}>
+                                            <div className="d-flex justify-content-between">
+                                                <h6 className="mb-1">{item.name}</h6>
+                                                <span>{item.price.toLocaleString()}₫</span>
+                                            </div>
+                                            <div className="d-flex justify-content-between align-items-center">
+                                                <small className="text-muted">Số lượng: {item.quantity}</small>
+                                                <span className="fw-bold">{(item.price * item.quantity).toLocaleString()}₫</span>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
+
+                        <Stack gap={2}>
+                            <Row className="align-items-center">
+                                <Col>Tạm tính:</Col>
+                                <Col xs="auto">{subtotal.toLocaleString()}₫</Col>
+                            </Row>
+                            <Row className="align-items-center">
+                                <Col>Phí vận chuyển:</Col>
+                                <Col xs="auto">{shippingFee.toLocaleString()}₫</Col>
+                            </Row>
+                            <hr className="my-2" />
+                            <Row className="align-items-center">
+                                <Col className="fw-bold">Tổng cộng:</Col>
+                                <Col xs="auto" className="fw-bold">{total.toLocaleString()}₫</Col>
+                            </Row>
+                        </Stack>
+
+                        {/* Discount Code */}
+                        <Form.Group className="mt-3">
                             <Form.Control
                                 type="text"
                                 placeholder="Mã giảm giá"
                                 className="mb-2"
                             />
                             <Button variant="secondary" className="w-100">
-                                Sử dụng
+                                Áp dụng
                             </Button>
                         </Form.Group>
-                    </div>
+                    </Col>
                 </div>
             </Container>
-            <Footer />
+            <div className="fixed-bottom bg-white border-top p-3">
+                <Container>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex align-items-center">
+                            {selectedPayment === 'COD' && (
+                                <>
+                                    <img
+                                        src="https://mcdn.coolmate.me/image/October2024/mceclip2_42.png"
+                                        alt="COD" className="me-2" style={{ width: '24px', height: '24px' }} />
+                                    <span>
+                                        <strong>COD</strong> thanh toán khi nhận món
+                                    </span>
+                                </>
+                            )}
+                            {selectedPayment === 'vnpay' && (
+                                <>
+                                    <img src="https://mcdn.coolmate.me/image/October2024/mceclip0_81.png"
+                                        alt="VNPAY"
+                                        className="me-2"
+                                        style={{ width: '24px', height: '24px' }}
+                                    />
+                                    <span>
+                                        <strong>VNPAY</strong> quét QR để thanh toán
+                                    </span>
+                                </>
+                            )}
+                        </div>
+                        <div className="text-end">
+                            <div className="total-amount">
+                                <span>Thành tiền: </span>
+                                <span className="text-primary fw-bold">{total.toLocaleString()}₫</span>
+                            </div>
+                            <Button
+                                variant="primary"
+                                size="lg"
+                                onClick={handleSubmit}
+                            >
+                                Đặt món
+                            </Button>
+                        </div>
+                    </div>
+                </Container>
+            </div>
         </div>
     );
 };

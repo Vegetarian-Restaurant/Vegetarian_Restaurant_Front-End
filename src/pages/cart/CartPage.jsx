@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import './CartPage.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import Banner from '../../components/Banner';
+import metaData from '../../data/meal_data.json';
 
 // CartItem Component
 const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
   <div key={item.id} className="cart-item">
     <img src={item.image} alt={item.name} />
     <div className="item-details">
-      <h3>{item.name}</h3>
+      <h4>{item.name}</h4>
       <p className="price">{item.price.toLocaleString()}₫</p>
     </div>
     <div className="quantity-controls">
@@ -24,11 +24,21 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
 );
 
 // CartSummary Component
-const CartSummary = ({ subtotal, shippingFee = 30000 }) => {
+const CartSummary = ({ subtotal, shippingFee = 30000, cartItems }) => {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    navigate('/payment');  // Navigate to payment page
+    navigate('/payment', {
+      state: {
+        cartItems,
+        subtotal,
+        shippingFee
+      }
+    });
+  };
+
+  const handleContinueBuy = () => {
+    navigate('/');
   };
 
   return (
@@ -49,29 +59,22 @@ const CartSummary = ({ subtotal, shippingFee = 30000 }) => {
       <button className="checkout-btn" onClick={handleCheckout}>
         Tiến hành thanh toán
       </button>
-      <button className="continue-shopping">Tiếp tục mua hàng</button>
+      <button className="continue-shopping" onClick={handleContinueBuy}>Tiếp tục mua hàng</button>
     </div>
   );
 };
 
 // Main CartPage Component
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Burger chay đặc biệt",
-      price: 89000,
-      quantity: 2,
-      image: "/placeholder.svg?height=80&width=80"
-    },
-    {
-      id: 2,
-      name: "Phở chay truyền thống",
-      price: 65000,
+  const [cartItems, setCartItems] = useState(
+    metaData.map(item => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
       quantity: 1,
-      image: "/placeholder.svg?height=80&width=80"
-    }
-  ]);
+      image: item.image || "/placeholder.svg?height=80&width=80"
+    }))
+  );
 
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity >= 1) {
@@ -92,7 +95,6 @@ const CartPage = () => {
   return (
     <div className="cart-page">
       <Header />
-      <Banner />
       <main className="cart-container">
         <h1>My Cart</h1>
         <div className="cart-content">
@@ -106,7 +108,10 @@ const CartPage = () => {
               />
             ))}
           </div>
-          <CartSummary subtotal={total} />
+          <CartSummary
+            subtotal={total}
+            cartItems={cartItems}
+          />
         </div>
       </main>
       <Footer />
