@@ -10,7 +10,7 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
   <div key={item.id} className="cart-item">
     <img src={item.image} alt={item.name} />
     <div className="item-details">
-      <h4>{item.name}</h4>
+      <h3>{item.name}</h3>
       <p className="price">{item.price.toLocaleString()}₫</p>
     </div>
     <div className="quantity-controls">

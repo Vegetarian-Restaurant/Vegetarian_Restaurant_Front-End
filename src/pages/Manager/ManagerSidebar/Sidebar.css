@@ -1,0 +1,34 @@
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar .menu-item,
+.sidebar .logout-btn,
+.sidebar .menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+/* Khi hover */
+.sidebar .menu-item:hover,
+.sidebar .logout-btn:hover,
+.sidebar .menu-btn:hover {
+  background-color: #0a3713;
+}
+
+/* Khi active */
+.sidebar .active {
+  background-color: #07361c; 
+  font-weight: bold;
+  border-left: 4px solid #062e16; 
+}
