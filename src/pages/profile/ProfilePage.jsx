@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Nav, Card, Form, Button } from 'react-bootstrap';
 import Header from '../../components/Header';
 import './ProfilePage.css';
-import SideBar from '../../components/SideBar';
+import SideBarProfile from '../../components/SideBarProfile';
 
 const ProfilePage = () => {
     return (
@@ -11,15 +11,15 @@ const ProfilePage = () => {
             <Container className="flex-grow-1 py-4 mt-100">
                 <Row>
                     <Col md={3} >
-                        {SideBar.map(item => (
-                            <Card className="sidebar" style={{ marginBottom: '10px', borderRadius: '20' }} key={item.id}>
+                        {SideBarProfile.map(item => (
+                            <Card className="sidebarprofile" style={{ marginBottom: '10px', borderRadius: '20' }} key={item.id}>
                                 <Nav className="flex-column">
                                     <Nav.Link
                                         key={item.id}
                                         href={item.link}
-                                        className={`sidebar-item ${item.active ? 'active' : ''}`}
+                                        className={`sidebarprofile-item ${item.active ? 'active' : ''}`}
                                     >
-                                        <img src={item.icon} alt="" className="sidebar-icon" />
+                                        <img src={item.icon} alt="" className="sidebarprofile-icon" />
                                         <span>{item.title}</span>
                                     </Nav.Link>
                                 </Nav>

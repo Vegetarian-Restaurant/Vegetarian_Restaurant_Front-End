@@ -4,6 +4,11 @@ import CartPage from './pages/cart/CartPage';
 import PaymentPage from './pages/payment/PaymentPage';
 import HomePage from './pages/home/HomePage';
 import ProfilePage from './pages/profile/ProfilePage';
+import ManagerDashboard from './pages/Manager/ManagerDashboard/ManagerDashboard';
+
+import ManagerProfile from './pages/Manager/ManagerProfile/ManagerProfile';
+import ManagerFoodList from './pages/Manager/FoodManagement/ManagerFoodList';
+import ManagerOrderList from './pages/Manager/ManagerOrderList/ManagerOrderList';
 
 function App() {
   return (
@@ -15,6 +20,13 @@ function App() {
         <Route path="/account/profile" element={<ProfilePage />} />
 
         {/* Add other routes as needed */}
+        {/* Route Manager */}
+        <Route path="/manager-dashboard" element={<ManagerDashboard />} />
+        <Route path="/manager-profile" element={<ManagerProfile />} />
+        <Route path="/manager-food" element={<ManagerFoodList />} />
+        <Route path="/manager-orders" element={<ManagerOrderList />} />
+        {/* Add other routes as needed */}
+
       </Routes>
     </BrowserRouter>
   );

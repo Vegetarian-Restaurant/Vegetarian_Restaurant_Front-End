@@ -1,0 +1,235 @@
+/* Search input container */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* Search input */
+.search-input {
+  padding: 10px 14px;
+  width: 280px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+}
+
+/* Header area with button */
+.food-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* Add button */
+.add-food-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-food-btn:hover {
+  background-color: #45a049;
+}
+
+/* Table Container */
+.food-table-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Table */
+.food-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: white;
+  font-size: 14px;
+}
+
+/* Header */
+.food-table th {
+  background-color: #e3f3d3;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Cells */
+.food-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #444;
+}
+
+/* Rounded corners for top */
+.food-table thead th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.food-table thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+/* Rounded corners for bottom */
+.food-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+.food-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+/* Badge styling */
+.badge {
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.badge.active {
+  background-color: #c8f7c5;
+  color: green;
+}
+
+.badge.inactive {
+  background-color: #fdd;
+  color: red;
+}
+
+/* Action buttons */
+.edit-btn, .delete-btn {
+  margin-right: 6px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.edit-btn {
+  background-color: #2196F3;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #1976D2;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Popup form */
+.popup-form {
+  background: #fffef5;
+  padding: 24px 28px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: inherit;
+  color: #333;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.popup-form h4 {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  color: #2f4f4f;
+  text-align: center;
+}
+
+/* Form inputs */
+.popup-form input,
+.popup-form select {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* Buttons in popup */
+.popup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.popup-actions button {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.popup-actions .update-btn {
+  background-color: #38a169;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.popup-actions .update-btn:hover {
+  background-color: #2f855a;
+}
+
+.popup-actions .cancel-btn {
+  background-color: #e53e3e;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.popup-actions .cancel-btn:hover {
+  background-color: #c53030;
+}
