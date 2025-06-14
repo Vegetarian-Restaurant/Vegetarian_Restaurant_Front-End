@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './CartPage.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import metaData from '../../data/meal_data.json';
+import meal_data from '../../data/meal_data.json';
 
 // CartItem Component
 const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
@@ -67,12 +67,15 @@ const CartSummary = ({ subtotal, shippingFee = 30000, cartItems }) => {
 // Main CartPage Component
 const CartPage = () => {
   const [cartItems, setCartItems] = useState(
-    metaData.map(item => ({
-      id: item.id,
+    meal_data.products.map(item => ({
+      id: item.product_id,
       name: item.name,
       price: item.price,
       quantity: 1,
-      image: item.image || "/placeholder.svg?height=80&width=80"
+      image: item.image_url || "/placeholder.svg?height=80&width=80",
+      description: item.description,
+      category: item.category,
+      stock_quantity: item.stock_quantity
     }))
   );
 
@@ -80,7 +83,12 @@ const CartPage = () => {
     if (newQuantity >= 1) {
       setCartItems(
         cartItems.map(item =>
-          item.id === id ? { ...item, quantity: newQuantity } : item
+          item.id === id
+            ? {
+              ...item,
+              quantity: Math.min(newQuantity, item.stock_quantity)
+            }
+            : item
         )
       );
     }
